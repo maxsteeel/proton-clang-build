@@ -385,21 +385,7 @@ def versioned_binaries(binary_name):
     """
 
     # There might be clang-7 to clang-11
-    tot_llvm_ver = 11
-    try:
-        response = request.urlopen(
-            'https://raw.githubusercontent.com/llvm/llvm-project/main/llvm/CMakeLists.txt'
-        )
-        to_parse = None
-        data = response.readlines()
-        for line in data:
-            line = line.decode('utf-8').strip()
-            if "set(LLVM_VERSION_MAJOR" in line:
-                to_parse = line
-                break
-        tot_llvm_ver = re.search('\d+', to_parse).group(0)
-    except URLError:
-        pass
+    tot_llvm_ver = 12
     return [
         '%s-%s' % (binary_name, i) for i in range(int(tot_llvm_ver), 6, -1)
     ]

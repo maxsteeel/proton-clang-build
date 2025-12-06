@@ -14,7 +14,7 @@ function gh_call() {
     resp="$(curl -Lfu "$GH_USER:$GH_TOKEN" \
         -H "Accept: application/vnd.github.v3+json" \
         -X "$req" \
-        "https://$server.github.com/repos/$GH_REL_REPO/$endpoint" \
+        "https://$server.github.com/repos/$GIT_USER/$GH_REL_REPO/$endpoint" \
         "$@")" || \
         { ret="$?"; echo "Request failed with exit code $ret:"; cat <<< "$resp"; return $ret; }
 
@@ -53,7 +53,7 @@ llvm_commit_url="https://github.com/llvm/llvm-project/commit/$llvm_commit"
 binutils_ver="$(ls | grep "^binutils-" | sed "s/binutils-//g")"
 
 # Update Git repository
-git clone "https://$GH_USER:$GH_TOKEN@github.com/$GH_REL_REPO" rel_repo
+git clone "https://$GH_USER:$GH_TOKEN@github.com/$GIT_USER/$GH_REL_REPO" rel_repo
 pushd rel_repo
 rm -fr *
 cp -r ../install/* .
@@ -64,7 +64,7 @@ git commit -am "Update to $rel_date build
 
 LLVM commit: $llvm_commit_url
 binutils version: $binutils_ver
-Builder commit: https://github.com/$GH_BUILD_REPO/commit/$builder_commit"
+Builder commit: https://github.com/$GIT_USER/$GH_BUILD_REPO/commit/$builder_commit"
 git push
 popd
 
@@ -93,7 +93,7 @@ echo "Release ID: $rel_id"
 set +u  # we're checking potentially unset variables here
 if [[ -n "$TG_CHAT_ID" ]] && [[ -n "$TG_TOKEN" ]]; then
     if [[ -n "$GH_RUN_ID" ]]; then
-        build_desc="[$rel_date build](https://github.com/$GH_BUILD_REPO/actions/runs/$GH_RUN_ID)"
+        build_desc="[$rel_date build](https://github.com/$GIT_USER/$GH_BUILD_REPO/actions/runs/$GH_RUN_ID)"
     else
         build_desc="*$rel_date build*"
     fi

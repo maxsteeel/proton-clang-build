@@ -13,6 +13,9 @@ function msg() {
 # Build LLVM
 msg "Building LLVM..."
 ./build-llvm.py \
+	--assertions \
+    --branch "release/12.x" \
+    --shallow-clone \
 	--clang-vendor "Proton" \
 	--targets "ARM;AArch64;X86" \
 	"$repo_flag" \
