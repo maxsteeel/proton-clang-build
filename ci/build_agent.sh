@@ -23,7 +23,7 @@ git clone --depth 1 "https://github.com/$GIT_NAME/$GH_BUILD_REPO" build
 cd build
 
 # Clone LLVM and apply fixup patches *before* building
-git clone "https://github.com/llvm/llvm-project"
+git clone "https://android.googlesource.com/toolchain/llvm-project" -j$(nproc)
 if [ -n "$(echo patches/*.patch)" ]; then
     pushd llvm-project
     git apply -3 ../patches/*.patch

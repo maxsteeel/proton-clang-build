@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - master
-  schedule:
-    # 3 PM PST on Saturdays
-    - cron: '0 22 * * SAT'
   workflow_dispatch:
 
 jobs:
