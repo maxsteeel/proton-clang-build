@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: buildjet-32vcpu-ubuntu-latest
+    runs-on: buildjet-64vcpu-ubuntu-latest
     steps:
       - name: Download scripts
         uses: actions/checkout@v6
