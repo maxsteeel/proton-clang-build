@@ -31,4 +31,8 @@ if [ -n "$(echo patches/*.patch)" ]; then
 fi
 
 ./build-toolchain.sh
-./upload-build.sh
+GH_TOKEN=$GH_TOKEN GH_USER=$GIT_NAME \
+GIT_USER=$GIT_NAME GIT_NAME=$GIT_NAME \
+GH_REL_REPO=$GH_REL_REPO GH_BUILD_REPO=$GH_BUILD_REPO \
+GIT_AUTHOR_NAME=$GIT_NAME GIT_AUTHOR_EMAIL=$GIT_AUTHOR_EMAIL \
+TG_CHAT_ID=$TG_CHAT_ID TG_TOKEN=$TG_TOKEN ./upload-build.sh
