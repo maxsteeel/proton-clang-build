@@ -11,10 +11,10 @@ function gh_call() {
     shift
     shift
 
-    resp="$(curl -Lfu "$GH_USER:$GH_TOKEN" \
+    resp="$(curl -Lfu "$GIT_NAME:$GH_TOKEN" \
         -H "Accept: application/vnd.github.v3+json" \
         -X "$req" \
-        "https://$server.github.com/repos/$GIT_USER/$GH_REL_REPO/$endpoint" \
+        "https://$server.github.com/repos/$GIT_NAME/$GH_REL_REPO/$endpoint" \
         "$@")" || \
         { ret="$?"; echo "Request failed with exit code $ret:"; cat <<< "$resp"; return $ret; }
 
@@ -49,18 +49,18 @@ llvm_commit="$(git rev-parse HEAD)"
 short_llvm_commit="$(cut -c-8 <<< $llvm_commit)"
 popd
 
-llvm_commit_url="https://github.com/llvm/llvm-project/commit/$llvm_commit"
+llvm_commit_url="https://android.googlesource.com/toolchain/llvm-project/+/$llvm_commit"
 binutils_ver="$(ls | grep "^binutils-" | sed "s/binutils-//g")"
 
 # Update Git repository
-git clone "https://$GH_USER:$GH_TOKEN@github.com/$GIT_USER/$GH_REL_REPO" rel_repo
+git clone "https://github.com/$GIT_NAME/$GH_REL_REPO" rel_repo
 pushd rel_repo
 rm -fr *
 cp -r ../install/* .
 # Keep files that aren't part of the toolchain itself
 git checkout README.md LICENSE
 git add .
-git commit -am "Update to $rel_date build
+git commit -asm "Update to the latest build
 
 LLVM commit: $llvm_commit_url
 binutils version: $binutils_ver
@@ -99,5 +99,5 @@ if [[ -n "$TG_CHAT_ID" ]] && [[ -n "$TG_TOKEN" ]]; then
     fi
     set -u
 
-    tg_send Message parse_mode=Markdown disable_web_page_preview=true text="$build_desc on LLVM commit [$short_llvm_commit]($llvm_commit_url) is now available: [tarball](https://github.com/$GH_REL_REPO/archive/$rel_date.tar.gz) or [Git repository](https://github.com/$GH_REL_REPO)"
+    tg_send Message parse_mode=Markdown disable_web_page_preview=true text="$build_desc on LLVM commit [$short_llvm_commit]($llvm_commit_url) is now available: [tarball](https://github.com/$GIT_USER/$GH_BUILD_REPO/archive/$rel_date.tar.gz) or [Git repository](https://github.com/$GIT_USER/$GH_BUILD_REPO)"
 fi
