@@ -53,7 +53,7 @@ llvm_commit_url="https://android.googlesource.com/toolchain/llvm-project/+/$llvm
 binutils_ver="$(ls | grep "^binutils-" | sed "s/binutils-//g")"
 
 # Update Git repository
-git clone "https://github.com/$GIT_NAME/$GH_REL_REPO" rel_repo
+git clone "https://$GH_USER:$GH_TOKEN@github.com/$GIT_NAME/$GH_REL_REPO" rel_repo
 pushd rel_repo
 rm -fr *
 cp -r ../install/* .
