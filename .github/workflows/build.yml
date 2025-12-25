@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: buildjet-64vcpu-ubuntu-latest
+    runs-on: buildjet-32vcpu-ubuntu-2204-arm
     steps:
       - name: Download scripts
         uses: actions/checkout@v6
@@ -24,6 +24,6 @@ jobs:
           GIT_USER: ${{ secrets.GIT_NAME }}
           GH_NAME: ${{ secrets.GIT_NAME }}
           GH_BUILD_REPO: proton-clang-build
-          GH_REL_REPO: proton-12
+          GH_REL_REPO: proton-12-arm
         run: |
           ci/build_agent.sh
