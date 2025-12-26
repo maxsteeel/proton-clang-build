@@ -233,7 +233,7 @@ function build_kernels() {
             "x86_64-linux-gnu")
                 time \
                     "${MAKE[@]}" \
-                    distclean "${CONFIG_TARGET}" bzImage modules || exit ${?}
+                    distclean "${CONFIG_TARGET}" Image modules || exit ${?}
                 ;;
         esac
     done
