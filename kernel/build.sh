@@ -114,7 +114,7 @@ function check_binutils() {
     BINUTILS_TARGETS=()
     for PREFIX in "${TARGETS[@]}"; do
         # We assume an x86_64 host, should probably make this more generic in the future
-        if [[ ${PREFIX} = "x86_64-linux-gnu" ]]; then
+        if [[ ${PREFIX} = "aarch64-linux-gnu" ]]; then
             COMMAND=as
         else
             COMMAND="${PREFIX}"-as
@@ -131,7 +131,7 @@ function print_tc_info() {
     for PREFIX in "${TARGETS[@]}"; do
         echo
         case ${PREFIX} in
-            x86_64-linux-gnu) as --version ;;
+            aarch64-linux-gnu) as --version ;;
             *) "${PREFIX}"-as --version ;;
         esac
     done
@@ -228,7 +228,7 @@ function build_kernels() {
                     LD="${TARGET}-ld" \
                     OBJCOPY="${TARGET}-objcopy" \
                     OBJDUMP="${TARGET}-objdump" \
-                    distclean defconfig bzImage modules || exit ${?}
+                    distclean defconfig Image modules || exit ${?}
                 ;;
             "x86_64-linux-gnu")
                 time \
