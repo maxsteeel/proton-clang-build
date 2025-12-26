@@ -16,8 +16,8 @@ msg "Building LLVM..."
 	--assertions \
     --branch "c935d99d7cf2016289302412d708641d52d2f7ee" \
     --shallow-clone \
-	--clang-vendor "Proton" \
-	--targets "ARM;AArch64;X86" \
+	--clang-vendor "Max Proton" \
+	--targets "ARM;AArch64" \
 	"$repo_flag" \
 	--pgo kernel-defconfig \
 	--lto full
