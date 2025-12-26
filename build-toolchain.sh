@@ -20,11 +20,11 @@ msg "Building LLVM..."
 	--targets "ARM;AArch64" \
 	"$repo_flag" \
 	--pgo kernel-defconfig \
-	--lto full
+	--lto thin
 
 # Build binutils
 msg "Building binutils..."
-./build-binutils.py --targets arm aarch64 x86_64
+./build-binutils.py --targets arm aarch64
 
 # Remove unused products
 msg "Removing unused products..."
